@@ -8,15 +8,23 @@
   New Game
 </button>
 <div class="row">
-  <div
-    style="border: 1px solid #ccc; height: 150px; cursor: pointer"
-    class="col-md-4 text-center"
+  <button
+    style="border: 1px solid #ccc; height: 180px; cursor: pointer"
+    class="col-md-4 text-center btn"
+    [ngClass]="changeWinnerButtonClass(game.winner)"
     *ngFor="let game of games; let index = index"
     (click)="clickBox(index)"
   >
-    <span style="font-size: 80px">{{ game }}</span>
-  </div>
+    <span style="font-size: 80px">{{ game.box }}</span>
+  </button>
 </div>
 <hr />
 
-<button class="btn btn-primary">1.Set</button>
+<button
+  *ngFor="let m of moves; let i = index"
+  class="btn btn-danger"
+  style="margin-right: 5px"
+  (click)="setButtonClick(i)"
+>
+  {{ i + 1 }}. Set
+</button>
