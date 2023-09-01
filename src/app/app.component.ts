@@ -10,6 +10,7 @@ export class AppComponent {
   games: any[] = [];
   moves: any = [];
   gameOver: boolean = false;
+  gameTied: boolean = false;
 
   newGame() {
     this.box = 'X';
@@ -27,6 +28,7 @@ export class AppComponent {
     ];
     this.gameOver = false;
     this.moves = [];
+    this.gameTied = false;
   }
 
   clickBox(index: number) {
@@ -35,8 +37,11 @@ export class AppComponent {
       this.games[index].box = this.box;
       this.moves.push([...this.games]); // Bunu asagida cixan "set" yani hamle sayini gostermek ücün yazdiq.
       this.isGameOver();
+      this.isGameTied();
       if (this.gameOver) {
         this.message = 'Game Over. Winner is ' + this.box;
+      } else if (this.gameTied) {
+        this.message = 'Game is Tied';
       } else {
         if (this.box == 'X') this.box = 'O';
         else this.box = 'X';
@@ -125,6 +130,16 @@ export class AppComponent {
       this.games[2].winner = true;
       this.games[4].winner = true;
       this.games[6].winner = true;
+    }
+  }
+
+  isGameTied() {
+    this.gameTied = true;
+    for (let index = 0; index < this.games.length; index++) {
+      if (this.games[index].box == '') {
+        this.gameTied = false;
+        break;
+      }
     }
   }
 
